@@ -176,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 19.72
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e7d59ea6e4a8154b9b78132b0e38cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textAsset: {fileID: 4900000, guid: 5f6f8f30d8e2bc04eaf6839208f59bb1, type: 3}
+  textAsset: {fileID: 4900000, guid: 8871a0d0a77b98544979c696d6b5f338, type: 3}
   groundPivot: {x: 0, y: 0}
   itemPivot: {x: 0, y: 0}
   tilePrefab: {fileID: 7249039364786617987, guid: 1c129a803fb71d14195de64ba9223e28, type: 3}

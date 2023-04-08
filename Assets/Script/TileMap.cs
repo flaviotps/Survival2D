@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class TileMap : MonoBehaviour
@@ -38,8 +39,9 @@ public class TileMap : MonoBehaviour
             var finalX = feature.x + tile.x;
             var finalY = (feature.y + tile.y) * InvertValue;
             var finalZ = feature.z;
-            var layer = feature.z;
-            
+            var mapLayer = feature.z;
+            var layer = mapLayer + tile.x + tile.y;
+
             //Adds offset for textures with width greater than 32 
             var tileOffSet = Vector3.zero;
             if (newTexture.width > TileSize)
@@ -61,7 +63,7 @@ public class TileMap : MonoBehaviour
                 new Rect(0, 0, newTexture.width, newTexture.height), groundPivot);
 
             // Set the tile game object as a child of the TileMap game object
-            var layerObject = getOrCreateLayerObject(layer.ToString());
+            var layerObject = getOrCreateLayerObject(mapLayer.ToString());
             newTile.transform.parent = layerObject;
         }
     }
@@ -70,14 +72,15 @@ public class TileMap : MonoBehaviour
     {
         foreach (var tile in feature.tiles)
         {
-            foreach (var item in tile.items)
+            foreach (var item in tile.items.Select((value, index) => new { value, index }))
             {
-                var newItemTexture = Resources.Load<Texture2D>("Textures/" + item.id);
+                var newItemTexture = Resources.Load<Texture2D>("Textures/" + item.value.id);
 
                 var itemX = feature.x + tile.x;
-                var itemY = (feature.y + tile.y) * InvertValue ;
+                var itemY = (feature.y + tile.y) * InvertValue;
                 var itemZ = feature.z;
-                var layer = feature.z+1;
+                var mapLayer = feature.z;
+                var layer = mapLayer + tile.x + tile.y + item.index;
 
                 //Adds offset for textures with width greater than 32 
                 var tileOffSet = Vector3.zero;
@@ -90,7 +93,7 @@ public class TileMap : MonoBehaviour
                 //Instantiate the item prefab
                 var position = new Vector3(itemX, itemY, -itemZ) + tileOffSet;
                 var newItem = Instantiate(tilePrefab, position, Quaternion.identity);
-                newItem.name = "[" + tile.x + "," + tile.y + "," + tile.y + "] - item:" + item.id;
+                newItem.name = "[" + tile.x + "," + tile.y + "," + tile.y + "] - item:" + item.value.id;
 
                 //Get the SpriteRenderer component of the new item GameObject
                 var itemSpriteRenderer = newItem.GetComponent<SpriteRenderer>();
@@ -101,7 +104,7 @@ public class TileMap : MonoBehaviour
                     new Rect(0, 0, newItemTexture.width, newItemTexture.height), itemPivot);
 
                 // Set the item game object as a child of the TileMap game object
-                var layerObject = getOrCreateLayerObject(layer.ToString());
+                var layerObject = getOrCreateLayerObject(mapLayer.ToString());
                 newItem.transform.parent = layerObject;
             }
         }
