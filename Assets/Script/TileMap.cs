@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Vector2 = System.Numerics.Vector2;
 
 public class TileMap : MonoBehaviour
 {
@@ -14,12 +15,12 @@ public class TileMap : MonoBehaviour
         CreateGround(mapData.map);
     }
 
-    private void CreateGround(List<MapData.MapItem> sqms)
+    private void CreateGround(List<MapData.MapItem> squares)
     {
-        foreach (var sqm in sqms)
+        foreach (var square in squares)
         {
          
-            foreach (var tile in sqm.tiles)
+            foreach (var tile in square.tiles)
             {
                 
                 var tileTexture = Resources.Load<Texture2D>("Textures/" + tile.id);
@@ -28,20 +29,15 @@ public class TileMap : MonoBehaviour
                     Debug.LogError("Failed to load texture for tile ID: " + tile.id);
                     return;
                 }
-                var position = new Vector3(sqm.x, sqm.y * -1) ;
-                var newTile = Instantiate(tilePrefab,  position, Quaternion.identity);
-                newTile.name = "[" + sqm.x + "," + sqm.y + "] - ground:" + tile.id;
+                
+                var position = new Vector3(square.x, square.y * -1);
+                var newTile = Instantiate(tilePrefab, position, Quaternion.identity);
+                newTile.name = $"[{square.x},{square.y}] - {tile.type}:{tile.id}";
                 var spriteRenderer = newTile.GetComponent<SpriteRenderer>();
-                var layer = 1;
-                if (tile.type == "ground")
-                {
-                    layer = 0;
-                }
-                spriteRenderer.sortingOrder = layer;
-            
-                //Change the texture of the SpriteRenderer to a new texture
-                spriteRenderer.sprite = Sprite.Create(tileTexture, new Rect(0, 0, tile.imageWidth, tile.imageHeight), Vector2.one/2);
-                newTile.transform.parent = transform;
+                spriteRenderer.sortingOrder = tile.type == "ground" ? 0 : 1;
+                var pivot = new Vector3(1f, 0f);
+                spriteRenderer.sprite = Sprite.Create(tileTexture, new Rect(0, 0, tile.imageWidth, tile.imageHeight), pivot);
+                newTile.transform.SetParent(transform);
             }
         }
     }

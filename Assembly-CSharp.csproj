@@ -104,6 +104,7 @@
      <Folder Include="Library\PackageCache\com.unity.collab-proxy@2.0.1\Lib\Editor\PlasticSCM" />
      <Folder Include="Library\PackageCache\com.unity.2d.animation@7.0.9\Tests" />
      <None Include="Library\PackageCache\com.unity.collab-proxy@2.0.1\Lib\Editor\PlasticSCM\localization\differences.zh-Hant.txt" />
+     <Folder Include="Assets\Material" />
      <None Include="Library\PackageCache\com.unity.collab-proxy@2.0.1\Lib\Editor\PlasticSCM\localization\plastic-gui.ko.txt" />
      <None Include="Library\PackageCache\com.unity.collab-proxy@2.0.1\Lib\Editor\PlasticSCM\localization\basecommands.ja.txt" />
      <Folder Include="Library\PackageCache\com.unity.modules.screencapture@1.0.0" />
@@ -255,6 +256,7 @@
      <Folder Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Editor Resources\Shaders" />
      <Folder Include="Library\PackageCache\com.unity.modules.director@1.0.0" />
      <Folder Include="Library\PackageCache\com.unity.modules.audio@1.0.0" />
+     <Folder Include="Assets\Script\Camera" />
      <None Include="Library\PackageCache\com.unity.modules.terrain@1.0.0\package.json" />
      <None Include="Library\PackageCache\com.unity.collab-proxy@2.0.1\Lib\Editor\PlasticSCM\localization\commontypes.ko.txt" />
      <None Include="Library\PackageCache\com.unity.2d.sprite@1.0.0\package.json" />
